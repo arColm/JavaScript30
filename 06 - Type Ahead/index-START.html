@@ -17,7 +17,59 @@
   </form>
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+  const cities = [];
+  fetch(endpoint)
+  .then(response => response.json())
+  .then(response => response.forEach(city => {
+    let c = {
+      name: `${city["city"]}, ${city["state"]}`,
+      population: `${city["population"]}`
+    }
+    cities.push(c);
+  }));
 
+  const input = document.querySelector(".search");
+  const suggestions = document.querySelector(".suggestions");
+
+
+
+  input.addEventListener("input", e => {
+    let text = e.target.value;
+    
+
+
+    let suggestedCities = [];
+    cities.forEach(city => {
+      if(city["name"].includes(text)) {
+        suggestedCities.push(city);
+      }
+    });
+    console.log(suggestedCities);
+
+
+
+    suggestions.replaceChildren();
+    suggestedCities.forEach(city => {
+      let listItem = document.createElement("li");
+      let nameElement = document.createElement("span");
+      let populationElement = document.createElement("span");
+
+      let name = city["name"];
+      let population = city["population"];
+
+      nameElement.setAttribute("class","name");
+      populationElement.setAttribute("class","population");
+
+      nameElement.innerText = name;
+      populationElement.innerText = population;
+
+      listItem.appendChild(nameElement);
+      listItem.appendChild(populationElement);
+
+
+      suggestions.appendChild(listItem);
+    })
+  })
 </script>
 </body>
 </html>
