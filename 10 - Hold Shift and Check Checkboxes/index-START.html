@@ -97,6 +97,22 @@
   </div>
 
 <script>
+  let shift = false;
+  const inputs = document.querySelectorAll("input");
+  inputs.forEach((input,index) => input.addEventListener("input", e=> {
+    if(shift) {
+      for(let i=index;i<inputs.length;i++) {
+        inputs[i].checked = true;
+      }
+
+    }
+    console.log(index);
+  }))
+
+  window.onclick = function (e) {
+    if(e.shiftKey) shift = true;
+    else shift = false;
+  }
 </script>
 </body>
 </html>
