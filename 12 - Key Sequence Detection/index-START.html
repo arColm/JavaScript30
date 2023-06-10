@@ -7,6 +7,28 @@
     <link rel="icon" href="https://fav.farm/🔥" />
   </head>
   <body>
-    <script></script>
+    <script>
+      const pressed = [];
+      const secretCode = "wesbos";
+      
+      function handleKeypress(e) {
+        let key = e.key;
+        console.log(key);
+        pressed.push(key);
+        if(pressed.length>6) {
+          pressed.splice(0,1);
+        }
+        console.log(pressed);
+
+
+        if(secretCode==pressed.join("")) {
+          cornify_add();
+        }
+      }
+
+      document.addEventListener("keyup", e => handleKeypress(e));
+
+
+    </script>
   </body>
 </html>
