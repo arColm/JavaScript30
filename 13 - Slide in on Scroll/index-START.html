@@ -59,6 +59,31 @@
       };
     }
 
+    const images = document.querySelectorAll("img");
+    function showImage(image) {
+      image.classList.add("active");
+    }
+    function hideImage(image) {
+      image.classList.remove("active");
+    }
+
+    var observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting) {
+            var image = entry.target;
+            showImage(image);
+          } else {
+            var image = entry.target;
+            hideImage(image);
+          }
+        })
+      })
+      images.forEach(image => {
+        observer.observe(image);
+      })
+
+
+
   </script>
 
   <style>
