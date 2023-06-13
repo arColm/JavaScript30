@@ -29,7 +29,52 @@
 <script>
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
-  const items = [];
+  var items = JSON.parse(localStorage.getItem("items")) || [];
+
+
+  function toggleDone(e,item) {
+    item.done = !item.done;
+
+    refreshPlates();
+
+  }
+
+  function refreshPlates() {
+    itemsList.replaceChildren();
+    items.forEach(item => {
+      var itemElement = document.createElement("li");
+      var doneStatus = document.createElement("input");
+      doneStatus.setAttribute("type","checkbox");
+      if(item.done) doneStatus.checked = true;
+      var label = document.createElement("label");
+      label.innerHTML = item.name;
+      itemElement.appendChild(doneStatus);
+      itemElement.appendChild(label);
+
+      
+      itemElement.addEventListener("click",e=> toggleDone(e,item));
+
+      itemsList.appendChild(itemElement);
+    })
+
+    localStorage.setItem("items",JSON.stringify(items));
+  }
+
+  function addPlate(e) {
+    e.preventDefault();
+    var name = this.querySelector("[name=item]").value;
+    this.querySelector("[name=item]").value = "";
+
+    var item = {
+      name:name,
+      done:false
+    }
+    items.push(item)
+    refreshPlates();
+  }
+
+
+  addItems.addEventListener("submit",addPlate);
 
 </script>
 
