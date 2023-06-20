@@ -28,6 +28,31 @@
 
   <script>
     // 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀
+
+    const buttons = document.querySelectorAll(".menu a");
+    const highlight = document.createElement("span");
+    highlight.classList.add("highlight");
+    document.body.appendChild(highlight);
+
+    function hover(e) {
+      const boundingRect = this.getBoundingClientRect();
+      console.log(boundingRect);
+
+      const width = boundingRect.width;
+      const height = boundingRect.height;
+      const x = boundingRect.left+window.scrollX;
+      const y = boundingRect.top+window.scrollY;
+
+      highlight.style.width = `${width}px`;
+      highlight.style.height = `${height}px`;
+      highlight.style.transform = `translate(${x}px,${y}px)`;
+
+    }
+
+
+    buttons.forEach(button => {
+      button.addEventListener("mouseover", hover);
+    })
   </script>
 </body>
 </html>
