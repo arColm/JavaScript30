@@ -30,12 +30,52 @@
     </div>
 
 <script>
-  const msg = new SpeechSynthesisUtterance();
+  var msg = new SpeechSynthesisUtterance();
   let voices = [];
   const voicesDropdown = document.querySelector('[name="voice"]');
   const options = document.querySelectorAll('[type="range"], [name="text"]');
   const speakButton = document.querySelector('#speak');
   const stopButton = document.querySelector('#stop');
+  const textArea = document.querySelector("textarea");
+  const rate = document.querySelector(`input[name="rate"]`)
+  const pitch = document.querySelector(`input[name="pitch"]`)
+
+  function populateVoices() {
+    voices = speechSynthesis.getVoices();
+    voicesDropdown.replaceChildren();
+    voices.forEach(voice => {
+      const option = document.createElement("option");
+      option.textContent = `${voice.name} (${voice.lang})`;
+
+      option.setAttribute("value",voice.name);
+      voicesDropdown.appendChild(option);
+    })
+  }
+
+  function speak() {
+    speechSynthesis.cancel();
+    const text = textArea.innerHTML;
+    msg.text = text;
+    speechSynthesis.speak(msg);
+  }
+
+  function changeOption() {
+    msg[this.name] = this.value;
+  }
+
+  function setVoice() {
+    msg.voice = voices.find(voice => voice.name === this.value);
+    console.log(this.value);
+  }
+
+  speechSynthesis.addEventListener("voiceschanged", populateVoices)
+  speakButton.setAttribute("onclick","speak()");
+  stopButton.setAttribute("onclick","speechSynthesis.cancel()");
+  rate.addEventListener("input",changeOption);
+  pitch.addEventListener("input",changeOption);
+  voicesDropdown.addEventListener("input",setVoice);
+  
+
 </script>
 
 </body>
