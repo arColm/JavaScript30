@@ -55,7 +55,20 @@
   </div>
 
 <script>
+  const nav = document.querySelector("nav");
+  const navPosition = nav.offsetTop;
 
+  function toggleNav() {
+    if(window.pageYOffset>navPosition) {
+      document.body.style.paddingTop = nav.offsetHeight + 'px';
+      nav.classList.add("fixed");
+    } else {
+      nav.classList.remove("fixed");
+      document.body.style.paddingTop = 0;
+    }
+  }
+
+  window.addEventListener("scroll",toggleNav);
 </script>
 
 </body>

@@ -78,6 +78,15 @@ li.logo a {
   color: black;
 }
 
+.fixed {
+  position:fixed;
+  top:0;
+  box-shadow: 0 5px 0 rgba(0,0,0,0.1);
+}
+.fixed li.logo {
+  max-width:500px;
+}
+
 nav a {
   text-decoration: none;
   padding: 20px;
