@@ -221,6 +221,40 @@
 </style>
 
 <script>
+
+  const navItems = document.querySelectorAll("ul.cool>li");
+  const dropdownBackground = document.querySelector(".dropdownBackground");
+  const nav = document.querySelector("nav");
+
+  function hoverNav() {
+    this.classList.add("trigger-enter");
+    setTimeout(() => this.classList.contains('trigger-enter') && this.classList.add('trigger-enter-active'), 150);
+
+    
+    dropdownBackground.classList.add("open");
+
+    const dropdown = this.querySelector(".dropdown");
+    const dropdownRect = dropdown.getBoundingClientRect();
+    const navRect = nav.getBoundingClientRect();
+    let width = dropdownRect.width;
+    let height = dropdownRect.height;
+    let x = dropdownRect.left;
+    let y = dropdownRect.top-navRect.top;
+  
+    dropdownBackground.style.setProperty("width",`${width}px`);
+    dropdownBackground.style.setProperty("height",`${height}px`);
+    dropdownBackground.style.setProperty("transform",`translate(${x}px, ${y}px)`)
+  }
+
+  function leaveNav() {
+    this.classList.remove("trigger-enter");
+    this.classList.remove("trigger-enter-active");
+  }
+
+  navItems.forEach(navItem => {
+    navItem.addEventListener("mouseover",hoverNav);
+    navItem.addEventListener("mouseleave",leaveNav);
+  })
 </script>
 
 </body>
