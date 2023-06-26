@@ -16,6 +16,24 @@
   </div>
 
 <script>
+  const MAXRATE = 25;
+
+  const video = document.querySelector("video");
+  const speed = document.querySelector(".speed");
+  const speedBar = speed.querySelector(".speed-bar");
+
+  const speedBoundingRect = speed.getBoundingClientRect();
+
+
+  speed.addEventListener("mousemove",e => {
+
+    var height = (e.offsetY/speedBoundingRect.height)*100 / MAXRATE;
+    console.log(height);
+
+    speedBar.style.height = `${height*MAXRATE}%`;
+    video.playbackRate = height;
+    speedBar.innerHTML = `${(height).toFixed(2)}x`;
+  })
 </script>
 </body>
 </html>
